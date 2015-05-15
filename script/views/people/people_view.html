@@ -1,0 +1,38 @@
+{{ console.log('template') }}
+
+<div class="people_view">
+    <ul>
+        {{# _.each(model, function(user) { }}
+        <li id="{{=user.objectId }}">
+
+
+            {{# if(user.photoUrl=='unknow'){ }}
+            <div class="user_photo" style="background-image: url('http://gravatar.com/avatar/c71c38340fc94601738c4d0c794cca36?s=512')"></div>
+            {{# } else{ }}
+            <div class="user_photo" style="background-image: url('{{=user.photoUrl }}')"></div>
+            {{# } }}
+
+
+
+            <div class="info">
+                <div class="name">{{=user.name }} {{=user.surname }}</div>
+                <div class="age">Age: {{=user.age }}</div>
+            </div>
+
+
+
+            {{# if(!user.myFriends){ }}
+                {{# if(user.sendFriendInv){ }}
+                    <div class="add_users">&#10004;</div>
+                {{# } else{ }}
+                    <div class="add_users">+</div>
+                {{# } }}
+            {{# }else{ }}
+                <div class="friend">f</div>
+            {{# } }}
+
+
+        </li>
+        {{# }) }}
+    </ul>
+</div>

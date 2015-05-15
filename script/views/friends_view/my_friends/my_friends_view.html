@@ -1,0 +1,26 @@
+<div class="my_friends">
+    <h2>Mu Friends ({{=model.length }})</h2>
+    <ul>
+        {{# _.each(model, function(user) { }}
+        <li id="{{=user.objectId }}">
+            {{# if(user.photoUrl=='unknow'){ }}
+            <div class="user_photo" style="background-image: url('http://gravatar.com/avatar/c71c38340fc94601738c4d0c794cca36?s=512')"></div>
+            {{# } else{ }}
+            <div class="user_photo" style="background-image: url('{{=user.photoUrl }}')"></div>
+            {{# } }}
+
+
+            <div class="info">
+                <div class="name">{{=user.name }} {{=user.surname }}</div>
+                <div class="age">Age: {{=user.age }}</div>
+                <!--            <div class="country">Country: Ukraine</div>-->
+            </div>
+
+            <div class="button">
+                <div class="remove">Remove</div>
+            </div>
+
+        </li>
+        {{# }) }}
+    </ul>
+</div>

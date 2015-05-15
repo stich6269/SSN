@@ -1,0 +1,31 @@
+
+    <ul>
+        {{# _.each(model, function(item) { }}
+
+        <li id="{{ item.objectId }}">
+            <div class="item_info">
+                <div class="title">{{ item.title }}</div>
+                <div class="delete"></div>
+                <div class="photo" style="background-image: url('{{ item.photoUrl }}')">
+
+                    <div class="photo_bar">
+                        <div class="type">Type: {{ item.type }}</div>
+                        <div class="price">Price: {{ item.price }}$</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="{{ item.status }}">Status: {{ item.status }}</div>
+                <div class="date">Date: {{ item.date }}</div>
+            </div>
+            <div class="buttons">
+                <button class="share">Share</button>
+                <button class="status">Status</button>
+                <button class="edit">Edit</button>
+            </div>
+        </li>
+
+        {{# }); }}
+
+    </ul>

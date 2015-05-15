@@ -1,0 +1,946 @@
+html{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.wrapper{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+
+/*STATUS BAR BEGIN*/
+.status_bar{
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 35px;
+    background-color: #3879d8;
+    padding: 3px 0%;
+    box-shadow: 0 0 40px rgba(0,0,0,0.7);
+}
+.menu_icon{
+    display: inline-block;
+    position: absolute;
+    box-sizing: border-box;
+    width: 70%;
+    height: 100%;
+    padding-left: 45px;
+    padding-top: 8px;
+    font-family: Arial;
+    font-weight: 600;
+    font-size: 25px;
+    color: #ffffff;
+    background-image: url("../images/list.png");
+    background-repeat: no-repeat;
+    background-position: -5px 3px;
+    background-size: 55px 35px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.upd_data{
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    box-sizing: border-box;
+    width: 30%;
+    background-color: #2F87EC;
+    margin-right: 3%;
+    height: 60%;
+    padding: 5px 25px;
+    border-radius: 10px;
+    padding-top: 6px;
+    font-family: Arial;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 70px;
+    cursor: pointer;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/*STATUS BAR END*/
+
+
+/*MENU VIEW BEGIN*/
+.menu{
+  display: none;
+  position: absolute;
+  top: 41px;
+  width: 100%;
+  height: 94%;
+  font-family: Arial;
+}
+
+.menu_wrap{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+}
+
+.menuPage {
+    display: block;
+    position: absolute;
+    background-color: #494949;
+    width: 210px;
+    height: 100%;
+    overflow: auto;
+}
+.menuPage ul{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+}
+.menuPage li{
+    display: block;
+    font-size: 18px;
+    font-family: Arial;
+    padding: 5px 10px;
+    padding-left: 40px;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    line-height: 35px;
+    opacity: .8;
+    width: 160px;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    background-size: 25px;
+}
+.menuPage #photo{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: 1%;
+    vertical-align: middle;
+}
+
+#user{
+    padding-left: 15px;
+    width: 185px;
+}
+.menuPage #name{
+    display: inline-block;
+    width: 125px;
+    font-size: 15px;
+    vertical-align: top;
+    line-height: 18px;
+}
+
+.menuPage li:hover{
+    cursor: pointer;
+    background-color: #686868;
+}
+#add_items{
+    background-image: url("../images/add.png");
+}
+#items{
+    background-image: url("../images/book.png");
+}
+#friends{
+    background-image: url("../images/users.png");
+}
+#suggestion{
+    background-image: url("../images/chat-active.png");
+}
+#settings{
+    background-image: url("../images/settings.png");
+}
+#logout{
+    background-image: url("../images/logout.png");
+}
+#help{
+    background-image: url("../images/help-alt.png");
+}
+#people{
+    background-image: url("../images/users-alt.png");
+}
+/*MENU VIEW AND*/
+
+
+/*CONTENT BEGIN*/
+.content{
+    display: block;
+    position: absolute;
+    top: 41px;
+    width: 100%;
+    height: 94%;
+    font-family: Arial;
+}
+/*CONTENT END*/
+
+.add_item{
+  width: 100%;
+  font-family: Arial;
+  color: #686868;
+}
+
+.add_item .button{
+    width: 100%;
+    display: block;
+    height: 70px;
+}
+
+input,
+select{
+    padding-left: 10px;
+    font-size: 18px;
+    color: #686868;
+}
+
+button{
+    width: 30%;
+    padding: 1% 1%;
+    font-size: 80%;
+    opacity: .7;
+    text-align: center;
+}
+
+h2{
+    display: block;
+    text-align: left;
+    width: 100%;
+    font-family: Arial;
+    margin: 0 0 0% 0;
+    color: rgb(250, 250, 250);
+    font-size: 17px;
+    padding: 5px 10px;
+    background-color: rgb(79, 112, 182);
+}
+
+/*ADD FORM BEGIN*/
+.addForm,
+.editView{
+    border-bottom: 2px solid rgba(0,0,0,.1);
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 35px;
+    position: absolute;
+}
+
+.addForm form{
+    display: block;
+    margin-left: 1%;
+    width: 100%
+height:100%
+}
+
+
+.row{
+    width: 100%;
+    padding: 1% 0 2% 2%;
+    box-sizing: border-box;
+}
+
+.row label{
+    color: #a1a1a1;
+    display: block;
+    font-size: 22px;
+}
+
+.row input,
+.row select{
+    display: block;
+    width: 98%;
+    border: none;
+    font-size: 22px;
+    background-color: rgba(0,0,0,0.2);
+    padding: 5px 10px 5px 5px;
+    box-sizing: border-box;
+    color: rgb(97, 97, 97);
+}
+
+.row select{
+    width: 98%;
+}
+#addNewItem{
+    position: relative;
+    margin-left: 2%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    width: 96%;
+    border: none;
+    font-size: 25px;
+    background-color: #008fbe;
+    box-sizing: border-box;
+    color: white;
+    text-align: center;
+}
+
+#addNewItem:hover{
+    background-color: deepskyblue;
+    cursor: pointer;
+}
+
+#type{
+    display: block;
+    width: 98%;
+    border: none;
+    background-color: rgba(0,0,0,0.2);
+    padding-left: 5px;
+    font-size: 22px;
+    color: #949494;
+}
+
+option{
+    width: 59%;
+    font-size: 50px;
+}
+
+/*ADD FORM END*/
+
+/*EDIT VIEW BEGIN*/
+.editView #save,
+.editView #cancel{
+    display: inline-block;
+    width: 49%;
+    background-color: #008fbe;
+    color: white;
+    text-align: center;
+    padding: 10px 0 10px 0;
+    font-size: 25px;
+    float: right;
+}
+.editView #save{
+    float: left;
+}
+.editView {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+}
+.editView .button{
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.editView #save:hover,
+.editView #cancel:hover{
+    background-color: #00b2e8;
+    cursor: pointer;
+}
+/*EDIT VIEW END*/
+
+
+/*ERROR BOX BEGIN*/
+.error_box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+}
+.error_wrap{
+    position: absolute;
+    top: 35%;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: auto;
+    font-size: 25px;
+    background-color: #00b2e8;
+}
+.message{
+    display: block;
+    width: 90%;
+    color: #ffffff;
+    padding: 5%;
+    /* margin-top: 0%; */
+    font-size: 25px;
+    font-family: sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+}
+#close{
+    display: block;
+    text-align: center;
+    width: 35%;
+    background-color: rgb(37, 146, 186);
+    box-shadow: 0 0 100px rgba(255,255,255,.4);
+    padding: 5px 0;
+    color: white;
+    margin-bottom: 5%;
+    margin-left: 30%;
+}
+#close:hover{
+    cursor: pointer;
+    background-color: #cecece;
+}
+/*ERROR BOX END*/
+
+
+/*START LOGIN AND REGISTRATION VIEW*/
+.loginView,
+.regView{
+    display: block;
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(67, 115, 222, 0.8);
+    text-align: center;
+    font-family: Georgia;
+    overflow: auto;
+    z-index: 10;
+}
+.loginView .input_box,
+.regView .input_box{
+    display: inline-block;
+    vertical-align: middle;
+    width: 90%;
+}
+
+.helper{
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.regView .input_box{
+    top: 15%;
+}
+.loginView .title,
+.regView .title{
+    font-size: 50px;
+    font-weight: normal;
+    text-shadow: -1px -1px #ababab;
+    color: #ffffff;
+    margin-bottom: 5%;
+    margin-top: 0%;
+    opacity: 0.8;
+}
+
+.loginView .row,
+.regView .row{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+}
+.loginView input,
+.regView input{
+    height: 40px;
+    color: white;
+}
+.loginView .submit,
+.regView .submit{
+    display: inline-block;
+    float: left;
+    height: 45px;
+    width: 150px;
+    line-height: 45px;
+    border-radius: 5px;
+
+    font-family: monospace;
+    text-transform: uppercase;
+    font-size: 18px;
+    box-shadow: 0 0 10px rgba(225, 225, 225, 0.1);
+    cursor: pointer;
+    color: white;
+    background-color: #4772ae;
+}
+.loginView .submit:hover,
+.regView .submit:hover{
+    background-color: #365381;
+    color: #b6b6b6;
+}
+.loginView .link,
+.regView .link{
+    display: inline-block;
+    float: right;
+    margin-top: 25px;
+    margin-right: 7%;
+    font-size: 18px;
+    color: rgba(210, 210, 210, 0.73);
+    cursor: pointer;
+}
+
+.loginView .link:hover,
+.regView .link:hover{
+    color: white;
+}
+/*END LOGIN AND REGISTRATION VIEW*/
+
+
+
+
+
+
+
+
+
+
+/*LISTS VIEW BEGIN*/
+.listsView{
+    z-index: 0;
+    height: 0;
+}
+.listsView ul{
+    margin: 2% 2% 2% 2%;
+    width: 96%;
+    height: auto;
+    padding: 0;
+}
+.listsView li {
+    display: block;
+    box-sizing: border-box;
+    padding: 2%;
+    background-color: rgba(0,0,0,0.05);
+    box-shadow: 0 0 50px rgba(0,0,0,.2);
+    margin-bottom: 5%;
+}
+
+.listsView li .photo{
+    position:relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.photo img{
+    display: block;
+    width: 100%;
+    margin:0;
+    padding: 0;
+}
+
+.listsView .item_info{
+    display: inline-block;
+    width: 100%;
+    height: 230px;
+    /* position: absolute; */
+}
+
+.listsView .info{
+    display: inline-block;
+    margin-top: 40px;
+    width: 42%;
+    vertical-align: middle;
+}
+
+.listsView .delete{
+    display:inline-block;
+    float: right;
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    background-image: url('../images/cancel.png');
+    background-repeat: no-repeat;
+    background-size: 27px;
+    opacity: 0.2;
+    cursor: position;
+}
+.item_info .title{
+    display: inline-block;
+    font-size: 23px;
+    height: 35px;
+    line-height: 30px;
+    width: 85%;
+        vertical-align: middle;
+}
+
+.listsView .photo_bar{
+    display:block;
+    width:100%;
+    background-color: rgba(0,0,0,.9);
+    height: 15%;
+    position:absolute;
+    bottom:0;
+    font-size: 18px;
+    color: white;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.listsView .price{
+    display: inline-block;
+    float: right;
+    width: 35%;
+}
+.item_info .type{
+    display: inline-block;
+    position:absolute;
+    width: 60%;
+}
+
+.listsView .planned{
+    color: red;
+}
+.listsView .bought{
+    color: green;
+}
+
+.listsView .buttons{
+    display: inline-block;
+    width: 55%;
+    margin-top: 40px;
+    vertical-align: middle;
+}
+/*LISTS VIEW END*/
+
+
+
+
+
+
+
+/*SETTINGS VIEW BEGIN*/
+.settingsView{
+    display: block;
+    width: 100%;
+}
+.settingsView .title{
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin: 0 0 10px 0;
+    padding: 0;
+    color: white;
+    background-color: dimgrey;
+}
+.settingsView .user_card{
+    display: block;
+    width: 100%;
+    height: 160px;
+}
+#user_prof{
+    padding:0;
+    margin-bottom: 12px;
+}
+
+.my_photo{
+    display: inline-block;
+    float: left;
+    width: 115px;
+    height: 125px;
+    margin: 10px 15px 0px 10px;
+    background-color: #686868;
+    background-size: cover;
+    border: 2px solid #ccc;
+}
+.settingsView .user_card{
+    display: inline-block;
+    width: 100%;
+    height: 145px;
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+}
+.settingsView .user_card ul{
+    margin: 8px 0 0 0;
+    padding: 0;
+    list-style: none;
+    color: #747474;
+}
+.settingsView .user_card li{
+    font-size: 17px;
+    line-height: 22px;
+}
+.settingsView .button{
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 2%;
+    height: 80px;
+    box-sizing: border-box;
+    /* background-color: rgba(148, 78, 78, 0.8); */
+}
+.settingsView .button #save,
+.settingsView .button #preview{
+    display: inline-block;
+    width: 47%;
+    background-color: #008fbe;
+    color: white;
+    box-sizing: border-box;
+    text-align: center;
+    height: 50px;
+    line-height: 45px;
+    font-size: 25px;
+}
+
+.settingsView .button #save{
+    margin-right: 4%;
+}
+
+.settingsView .button #save:hover,
+.settingsView .button #preview:hover{
+    background-color: #00a5d6;
+    cursor: pointer;
+}
+/*SETTINGS VIEW END*/
+
+
+
+
+
+
+
+.load{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 94%;
+    background-color: rgba(0,0,0,1);
+    background-image: url('http://localhost:63342/BuyMe/images/loading200x200.gif');
+    background-repeat: no-repeat;
+    background-position: center 40%;
+    background-size: 40%;
+}
+
+
+
+
+
+
+
+/*PEOPLE VIEW START*/
+.people_view{
+    width: 100%;
+    font-family: Arial;
+    color: #686868;
+    font-size: 100%;
+}
+
+.people_view ul{
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 2px;
+    box-sizing: border-box;
+    list-style: none;
+
+}
+
+.people_view li{
+    display: block;
+    width: 98%;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    margin: 5px 1% 5px 1%;
+}
+
+.user_photo{
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    background-size:cover;
+    background-color: rgba(182, 182, 182, 0.45);
+}
+
+.people_view .info{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 59%;
+    font-size: 18px;
+}
+
+.people_view .info .age,
+.people_view .info .country{
+    display: inline-block;
+    width: 40%;
+}
+
+
+.friend{
+  display: inline-block;
+  margin-top: 13px;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  font-size: 32px;
+  color: white;
+  font-weight: 600;
+  float: right;
+  background-color: rgba(23, 98, 199, 0.26);
+  cursor: pointer;
+}
+
+.people_view .add_users{
+    display: inline-block;
+    margin-top: 13px;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    font-size: 32px;
+    color: white;
+    font-weight: 600;
+    float: right;
+    background-color: rgba(23, 98, 199, 0.86);
+    cursor: pointer;
+}
+
+.people_view .add_users:hover{
+    background-color: rgb(23, 98, 199);
+}
+.people_view .add_users:active{
+    background-color: rgb(23, 98, 199);
+}
+/*PEOPLE VIEW END*/
+
+
+
+
+
+
+
+
+
+
+/*FRIENDS VIEW BEGIN*/
+
+.friends_view{
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-family: Arial;
+    color: #686868;
+    font-size: 18px;
+    /* background-color: antiquewhite; */
+}
+
+
+.my_friends{
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: Arial;
+    color: #686868;
+    font-size: 18px;
+}
+
+
+.new_friends{
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: Arial;
+    color: #686868;
+    font-size: 18px;
+    /* background-color: #000; */
+}
+
+
+
+
+
+.friends_view ul{
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 2px;
+    box-sizing: border-box;
+    list-style: none;
+
+}
+
+.friends_view li{
+    display: block;
+    width: 98%;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    margin: 5px 1% 5px 1%;
+}
+
+.friends_view .photo{
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(182, 182, 182, 0.45);
+}
+
+.friends_view .info{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 60%;
+}
+
+.friends_view .info .age,
+.friends_view .info .country{
+    display: inline-block;
+    width: 100%;
+}
+
+.friends_view .button{
+    display: inline-block;
+    vertical-align: middle;
+    width: 70px;
+    float: right;
+
+}
+.friends_view .button .reject,
+.friends_view .button .accept{
+    display: block;
+    font-family: Arial;
+    font-size: 14px;
+    line-height: 18px;
+    text-align:center;
+    background-color: #4f70b6;
+    color: white;
+    cursor: pointer;
+    padding: 5px 5px 5px 5px;
+    margin: 0 0 5px 0;
+}
+
+.friends_view .button .remove{
+    display: block;
+    font-family: Arial;
+    font-size: 14px;
+    line-height: 18px;
+    text-align:center;
+    background-color: #4f70b6;
+    color: white;
+    cursor: pointer;
+    padding: 5px 5px 5px 5px;
+    margin: 15px 0 5px 0;
+}
+
+.friends_view .button .accept:hover,
+.friends_view .button .reject:hover{
+    background-color: #5686d3;
+}
+
+/*FRIEND VIEW BEGIN*/
+
+/*FRIEND VIEW BEGIN*/
+
+.new_friends_view .backbone-view {
+    position: static;
+}
+
+.my_friends_view .backbone-view {
+    position: static;
+}

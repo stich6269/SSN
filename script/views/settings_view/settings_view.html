@@ -1,0 +1,62 @@
+<div class="settingsView">
+    <div class="row" id="user_prof">
+        <div class="user_card">
+
+            {{# if(model.photoUrl=='unknow'){ }}
+            <div class="my_photo" style="background-image: url('http://gravatar.com/avatar/c71c38340fc94601738c4d0c794cca36?s=512')"></div>
+            {{# } else{ }}
+            <div class="my_photo" style="background-image: url('{{=model.photoUrl }}')"></div>
+            {{# } }}
+
+
+            <div class="users_info">
+                <ul>
+                    <li>Name: {{=model.name }}</li>
+                    <li>Surname: {{=model.surname }}</li>
+                    <li>Sex: {{=model.sex }}</li>
+                    <li>Age: {{=model.age }}</li>
+                    <li>E-mail: {{=model.email }}</li>
+                    <li>User id: {{=model.objectId }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label for="photo_source">Link to your photo</label>
+        <input type="url" id="photo_source" value="{{=model.photoUrl }}" placeholder="http://some-site.ru"/>
+    </div>
+
+    <div class="row">
+        <label for="username">Login</label>
+        <input type="text" id="username" value="{{=model.username }}" placeholder="User name"/>
+    </div>
+
+    <div class="row">
+        <label for="names">Your name:</label>
+        <input type="text" id="names" value="{{=model.name }}" placeholder="Name"/>
+    </div>
+
+    <div class="row">
+        <label for="surname">Your surname</label>
+        <input type="text" id="surname" value="{{=model.surname }}" placeholder="Surname"/>
+    </div>
+
+    <div class="row">
+        <label for="age">Age:</label>
+        <input type="number" name="" value="{{=model.age }}" id="age"/>
+    </div>
+
+    <div class="row">
+        <label for="sex">Sex:</label>
+        <select name="" id="sex">
+            <option value="man">Man</option>
+            <option value="female">Female</option>
+        </select>
+    </div>
+
+    <div class="button">
+        <div id="save">Save</div>
+        <div id="preview">Preview</div>
+    </div>
+</div>
