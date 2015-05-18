@@ -1,4 +1,4 @@
-RAD.view("view.popup", RAD.Blanks.ScrollableView.extend({
+RAD.view("view.popup", RAD.Blanks.View.extend({
     url: 'script/views/message/message_view.html',
     onInitialize: function () {
         this.model = new Backbone.Model();

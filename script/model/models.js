@@ -35,7 +35,7 @@ RAD.model('User', Parse.User.extend({
 
         if (errArr.length){
             errStr = 'User is not created, because you made next errors: ' + errArr.join(', ');
-            window.RAD.core.publish('service.show_error', errStr);
+            RAD.core.publish('service.show_error', errStr);
             return errStr;
         }
 

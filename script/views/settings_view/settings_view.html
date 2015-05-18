@@ -24,7 +24,12 @@
 
     <div class="row">
         <label for="photo_source">Link to your photo</label>
+        {{# if(model.photoUrl=='unknow'){ }}
+        <input type="url" id="photo_source" value="http://gravatar.com/avatar/c71c38340fc94601738c4d0c794cca36?s=512" placeholder="http://some-site.ru"/>
+        {{# } else{ }}
         <input type="url" id="photo_source" value="{{=model.photoUrl }}" placeholder="http://some-site.ru"/>
+        {{# } }}
+
     </div>
 
     <div class="row">

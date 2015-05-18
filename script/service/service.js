@@ -1,7 +1,8 @@
 RAD.service("service.show_error", RAD.Blanks.Service.extend({
     onReceiveMsg: function (channel, message) {
-        this.publish('navigation.popup.show', {
+        this.publish('navigation.toast.show', {
             content: "view.popup",
+            showTime: 2000,
             extras: {
                 msg: message
             }
@@ -23,9 +24,11 @@ RAD.service("service.network", RAD.Blanks.Service.extend({
 
         if (newUser.password === newUser.passwordRepeat && !!newUser.password){
             delete newUser.passwordRepeat;
+            RAD.application.showLoad();
             if (regUser.set(newUser, {validate: true})){
                 regUser.signUp(newUser, {
                     success: function() {
+                        RAD.application.showLoad();
                         self.publish('navigation.show', {
                             content: "view.login_view",
                             container_id: '#screen',
@@ -37,21 +40,27 @@ RAD.service("service.network", RAD.Blanks.Service.extend({
                         });
                     },
                     error: function(user, error) {
+                        RAD.application.showLoad();
                         self.publish('service.show_error', "Error: " + error.message);
                     }
                 });
             }
         }else{
+            RAD.application.showLoad();
             this.publish('service.show_error', "Password and password repeat is not equal");
         }
     },
     login: function(user){
         var self = this;
+
+        RAD.application.showLoad();
         Parse.User.logIn(user.username, user.password, {
             success: function() {
+                RAD.application.showLoad();
                 RAD.application.selectStartPage();
             },
             error: function(user, error) {
+                RAD.application.showLoad();
                 self.publish('service.show_error', "Error: " + error.message)
             }
         });
@@ -178,36 +187,33 @@ RAD.service("service.post_notification",  RAD.Blanks.Service.extend({
         });
 
     },
-    processingSuggestionPost: function (data) {
-        var incPostNot = data.incomingPostNotification.pluck('content');
-
-        data.suggestionPostCollection = new ItemCollection();
-        data.suggestionPostCollection.add(incPostNot);
-        console.log('processingSuggestionPost', incPostNot);
+    processingSuggestionPost: function () {
+        var incPostNot = RAD.model('IncomingPostNotification').pluck('content');
+        RAD.model('SuggestionPosts').add(incPostNot);
     },
-    takePost: function (postId, data) {
-        var takePost = data.suggestionPostCollection.get(postId),
+    takePost: function (postId) {
+        var takePost = RAD.model('SuggestionPosts').get(postId),
             newPostData = takePost.toJSON(),
-            notificationRequest = new Parse.Query(PostRequest);
+            notificationRequest = new Parse.Query(RAD.model('PostRequest')),
+            self = this;
 
         notificationRequest.equalTo('content', takePost);
         notificationRequest.find().then(function (notification) {
             return notification[0].destroy();
         }).then(function () {
-            data.suggestionPostCollection.remove(takePost);
-            ItemService.addItem(newPostData, data.itemsCollection);
+            RAD.model('SuggestionPosts').remove(takePost);
+            self.publish('service.items.addItem', newPostData);
         });
     },
-    deletePost: function (postId, data) {
-        var takePost = data.suggestionPostCollection.get(postId),
-            notificationRequest = new Parse.Query(PostRequest);
+    deletePost: function (postId) {
+        var takePost = RAD.model('SuggestionPosts').get(postId),
+            notificationRequest = new Parse.Query(RAD.model('PostRequest'));
 
         notificationRequest.equalTo('content', takePost);
         notificationRequest.find().then(function (notification) {
-            console.log(notification[0]);
             return notification[0].destroy();
         }).then(function () {
-            data.suggestionPostCollection.remove(takePost);
+            RAD.model('SuggestionPosts').remove(takePost);
         });
     }
 }));
@@ -295,33 +301,19 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
             self.publish('service.network.getUsersData');
         })
     },
-    processingOfRequestsInFriend: function(){
-        var data = window.RAD.application.data,
-            recipientArr = data.incomingFriendsNotif.pluck("sender"),
-            sendAnApplicationUser;
-
-        data.newFriendsCollection = new UsersCollection();
-        for (var i = 0; i < recipientArr.length; i++) {
-            sendAnApplicationUser = data.usersCollection.get(recipientArr[i]);
-            if(data.incomingFriendsNotif.at(i).get('response') === 'none'){
-                data.newFriendsCollection.add(sendAnApplicationUser);
-            }
-        }
-    },
     processingOfConfirmedOrders: function(){
-        var data = window.RAD.application.data,
-            sentNotification = data.sentFriendsNotif.pluck('recipient'),
+        var sentNotification = RAD.model('SentFriendsNotification').pluck('recipient'),
             user = Parse.User.current(),
             relation = user.relation('Friends'),
             addFriend,
-            count = 0;
-
+            count = 0,
+            self = this;
         for (var i = 0; i < sentNotification.length; i++) {
-            if(data.sentFriendsNotif.at(i).get('response') == 'ok'){
-                addFriend = data.usersCollection.get(sentNotification[i]);
-                data.friendsCollection.add(addFriend);
+            if(RAD.model('SentFriendsNotification').at(i).get('response') == 'ok'){
+                addFriend = RAD.model('UsersCollection').get(sentNotification[i]);
+                RAD.model('FriendsCollection').add(addFriend);
                 relation.add(addFriend);
-                data.sentFriendsNotif.at(i).destroy();
+                RAD.model('SentFriendsNotification').at(i).destroy();
                 sentNotification.splice(i, 1);
                 count++;
             }
@@ -360,10 +352,8 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
         }
         for (var j = 0; j <  myFriends.length; j++) {
             sentNotificationToUser = RAD.model('UsersCollection').get(myFriends.at(j));
-            console.log(sentNotificationToUser.get('name'));
             sentNotificationToUser.set('myFriends', true);
         }
-        console.log(RAD.model('FriendsCollection').toJSON());
     }
 }));
 

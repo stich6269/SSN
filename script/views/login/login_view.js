@@ -14,8 +14,10 @@ RAD.view("view.login_view", RAD.Blanks.View.extend({
         var username = $('#login').val(),
             password = $('#password').val();
 
-
-       this.publish('service.network.login', {username: username, password: password});
+        this.publish('service.network.login', {
+            username: username,
+            password: password
+        });
     },
     goToRegView: function(){
         this.publish('navigation.show', {

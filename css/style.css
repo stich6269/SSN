@@ -353,25 +353,25 @@ option{
     display: block;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.8);
+    /* background-color: rgba(0,0,0,0.8); */
 }
 .error_wrap{
     position: absolute;
-    top: 35%;
+    top: 41px;
     left: 0;
     display: block;
     width: 100%;
     height: auto;
-    font-size: 25px;
-    background-color: #00b2e8;
+    font-size: 20px;
+    background-color: #000000;
 }
 .message{
     display: block;
-    width: 90%;
+    width: 100%;
     color: #ffffff;
     padding: 5%;
     /* margin-top: 0%; */
-    font-size: 25px;
+    font-size: 18px;
     font-family: sans-serif;
     text-align: center;
     box-sizing: border-box;
@@ -705,17 +705,15 @@ option{
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 94%;
+    height: 100%;
     background-color: rgba(0,0,0,1);
     background-image: url('http://localhost:63342/BuyMe/images/loading200x200.gif');
-    background-repeat: no-repeat;
-    background-position: center 40%;
-    background-size: 40%;
+    background-repeat: no-repeat; 
+    background-position: center 40%; 
+    background-size: 40%; 
+    opacity: .6;
+    z-index: 50;
 }
-
-
-
-
 
 
 

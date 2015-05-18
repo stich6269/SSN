@@ -11,6 +11,13 @@ RAD.model('ItemsCollection', Parse.Collection.extend({
     }
 }), true);
 
+
+
+
+RAD.model('SuggestionPosts', Parse.Collection.extend({
+    model: RAD.model('Item')
+}), true);
+
 RAD.model('UsersCollection', Parse.Collection.extend({
     model: RAD.model('User'),
     onInitialize: function(){
@@ -56,6 +63,7 @@ RAD.model('SentFriendsNotification', Parse.Collection.extend({
         this.query.equalTo("sender", Parse.User.current().id);
         this.query.find().then(function(data){
             self.reset(data);
+            RAD.core.publish('service.notification.processingOfConfirmedOrders');
         });
     }
 }), true);
@@ -81,13 +89,13 @@ RAD.model('IncomingPostNotification', Parse.Collection.extend({
         var self = this;
 
         this.query.equalTo('recipient', Parse.User.current());
+        this.query.include('content');
         this.query.find().then(function(data){
             self.reset(data);
+            RAD.core.publish('service.post_notification.processingSuggestionPost')
         });
     }
 }), true);
-
-
 
 
 RAD.model('NewFriendsCollection', Parse.Collection.extend({

@@ -7,9 +7,6 @@ RAD.view("view.items_view", RAD.Blanks.ScrollableView.extend({
     onStartAttach: function(){
         this.model.refresh();
     },
-    onEndRender: function(){
-        console.log(this.mScroll);
-    },
     onEndDetach: function(){
         this.model.refresh();
     },

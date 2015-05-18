@@ -1,34 +1,26 @@
 RAD.view("view.suggestion_view", RAD.Blanks.ScrollableView.extend({
-    url: 'script/views/suggestion_view/suggestion_view.html',
+    url: 'script/views/suggestion/suggestion_view.html',
     className: 'listsView',
     onInitialize: function(){
-        this.model = window.RAD.application.data.newPostCollection;
+        this.bindModel(RAD.model('SuggestionPosts'));
     },
-    onReceiveMsg: function(chanel, data){
-        this.bindModel(data);
+    onStartAttach: function(){
+        RAD.model('IncomingPostNotification').refresh();
+    },
+    onEndDetach: function(){
+        RAD.model('IncomingPostNotification').refresh();
     },
     events:{
-        'tap .delete' : 'removeItem',
-        'tap .status' : 'changeStatus',
-        'tap .edit'   : 'edit',
-        'tap .share'  : 'shareItem'
+        'tap .take' : 'takePost',
+        'tap .delete' : 'deletePost'
     },
-    changeStatus:function(event){
-        console.log(5555);
-        var modelId  = this.getModelId(event);
-        this.publish('service.items.changeItemStatus', modelId);
+    takePost: function(event){
+        var postId = this.getModelId(event);
+        this.publish('service.post_notification.takePost', postId);
     },
-    shareItem:function(event){
-        var modelId  = this.getModelId(event);
-        this.publish('service.items.changeItemStatus', modelId);
-    },
-    removeItem: function(event){
-        var modelId  = this.getModelId(event);
-        this.publish('service.items.removeItem', modelId);
-    },
-    edit: function(event){
-        var modelId  = this.getModelId(event);
-        window.RAD.application.showEditView(modelId);
+    deletePost: function(event){
+        var postId = this.getModelId(event);
+        this.publish('service.post_notification.deletePost', postId);
     },
     getModelId: function (event) {
         return $(event.currentTarget).parent().parent().attr('id');

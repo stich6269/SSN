@@ -8,10 +8,13 @@
         "script/service/service.js",
 
         "script/views/message/message_view.js",
+        "script/views/load_view/load_view.js",
         "script/views/login/login_view.js",
         "script/views/registration/reg_view.js",
 
         "script/views/menu/menu_view.js",
+        "script/views/suggestion/suggestion_view.js",
+
         "script/views/items_view/items_view.js",
         "script/views/people/people_view.js",
         "script/views/add_items/add_items_view.js",

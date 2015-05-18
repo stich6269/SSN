@@ -10,10 +10,23 @@ RAD.application(function (core) {
         core.startService();
         this.selectStartPage();
     };
+    app.selectStartPage = function(){
+        if(Parse.User.current()){
+            this.getData();
+            this.showParentView();
+        }else{
+            this.showLoginView();
+        }
+    };
+    app.getData = function(){
+        RAD.model('FriendsCollection').refresh();
+        RAD.model('UsersCollection').refresh();
+        RAD.model('IncFriendsRequest').refresh();
+        RAD.model('SentFriendsNotification').refresh();
+    };
     app.isFullUserProfile = function(){
         if(Parse.User.current()){
             if (Parse.User.current().get('setupStatus') != 'complete'){
-                console.log('ok');
                 var options = {
                     container_id: '.content',
                     content: 'view.settings_view',
@@ -51,22 +64,16 @@ RAD.application(function (core) {
             core.publish('navigation.show', options)
         }
     };
-    app.selectStartPage = function(){
-        if(Parse.User.current()){
-            RAD.model('FriendsCollection').refresh();
-            RAD.model('SentFriendsNotification').refresh();
-            RAD.model('UsersCollection').refresh();
-            RAD.model('IncFriendsRequest').refresh();
+    app.showLoad = function(){
+        var $loadElem = $('<div/>', {class: 'load'}),
+            loadInPage = $('.load')[0];
 
-            this.showParentView();
+        if (! loadInPage){
+            $('#screen').append($loadElem);
         }else{
-            this.showLoginView();
+            $(loadInPage).toggle();
         }
-    };
-    app.dataIsUpdated = function(self){
-/*        core.publish('service.notification.processingOfRequestsInFriend');
-        core.publish('service.notification.processingOfConfirmedOrders');
-        core.publish('service.notification.markPeopleWithNotification');*/
+
     };
     app.showLoginView = function(){
         core.publish('navigation.show', {
@@ -84,7 +91,6 @@ RAD.application(function (core) {
         });
     };
     app.showSettingsView = function(){
-        console.log('set');
         core.publish("view.parent_view", {
             view: 'view.settings_view',
             method: 'show'
