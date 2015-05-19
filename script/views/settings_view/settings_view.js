@@ -3,6 +3,9 @@ RAD.view("view.settings_view", RAD.Blanks.ScrollableView.extend({
     onInitialize: function(){
         this.bindModel(Parse.User.current());
     },
+    onStartAttach: function(){
+        this.changeModel(Parse.User.current());
+    },
     onNewExtras: function (extras) {
         this.bindModel(extras.model);
     },
@@ -24,7 +27,8 @@ RAD.view("view.settings_view", RAD.Blanks.ScrollableView.extend({
 
         this.publish('service.network.updateUsersInfo', {
             newUser: newUser,
-            buttonId: buttonId
+            buttonId: buttonId,
+            currentUser: Parse.User.current()
         });
     }
 }));

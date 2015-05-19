@@ -14,7 +14,9 @@ RAD.view("view.add_items_view", RAD.Blanks.ScrollableView.extend({
                 photoUrl: this.$el.find('#photoUrl').val()
             };
 
+
         this.$el.find('form')[0].reset();
-        this.publish('service.items.addItem', newItem);
+        RAD.application.data.newItemData = newItem;
+        this.publish('service.items.addItem', RAD.application.data);
     }
 }));

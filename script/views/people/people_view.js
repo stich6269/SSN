@@ -4,23 +4,25 @@ RAD.view("view.people_view", RAD.Blanks.ScrollableView.extend({
         'click .add_users' : 'sendFriendRequest'
     },
     onInitialize: function(){
-        this.bindModel(RAD.model('UsersCollection'));
-    },
-    onStartAttach: function(){
-        this.publish('service.notification.markPeopleWithNotification');
+        this.bindModel(RAD.application.data.UsersCollection);
     },
     getModelId: function (event) {
         return $(event.currentTarget).parent().attr('id');
     },
     sendFriendRequest:function(event){
-        var addressee = this.getModelId(event),
+        var recipient = this.getModelId(event),
             requestObj = {
                 sender: null,
-                type:'Friend',
                 response: 'none',
-                recipient: addressee
+                recipient: recipient
+            },
+            data = {
+                requestObj: requestObj,
+                UsersCollection: RAD.model('UsersCollection'),
+                FriendsCollection: RAD.model('FriendsCollection'),
+                FriendNotification: RAD.model('FriendNotification')
             };
 
-        this.publish('service.notification.sendFriendRequest', requestObj);
+        this.publish('service.notification.sendFriendRequest', data);
     }
 }));
