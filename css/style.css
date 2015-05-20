@@ -51,28 +51,46 @@ body{
     cursor: pointer;
 }
 
-.upd_data{
+.upd_icon{
     display: inline-block;
     position: absolute;
-    top: 5px;
+    top: 0;
     right: 0;
     box-sizing: border-box;
-    width: 30%;
-    background-color: #2F87EC;
-    margin-right: 3%;
-    height: 60%;
+    width: 41px;
+    height: 100%;
     padding: 5px 25px;
-    border-radius: 10px;
-    padding-top: 6px;
-    font-family: Arial;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 70px;
+    border-radius: 1px;
     cursor: pointer;
-    color: #ffffff;
-    cursor: pointer;
+    background-image: url("../images/load.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50%;
+    opacity: .5;
 }
 
+.rotate_load{
+    animation-name: rotate;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: rotate; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 3s; /* Chrome, Safari, Opera */
+    animation-timing-function: linear;
+    -webkit-animation-timing-function: linear;
+    opacity: 1;
+    
+}
+
+@keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+@-webkit-keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
 /*STATUS BAR END*/
 
 
@@ -582,12 +600,12 @@ option{
 .listsView .price{
     display: inline-block;
     float: right;
-    width: 35%;
+    width: auto;
 }
 .item_info .type{
     display: inline-block;
     position:absolute;
-    width: 60%;
+    width: auto;
 }
 
 .listsView .planned{

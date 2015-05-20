@@ -19,10 +19,15 @@ RAD.view("view.parent_view", RAD.Blanks.View.extend({
     },
     events:{
         'tap .menu_icon': 'toggleMenu',
-        'tap .menu': 'toggleMenu'
+        'tap .menu': 'toggleMenu',
+        'tap .upd_icon': 'updateData'
     },
     toggleMenu: function(){
         this.publish('view.menu_view', 'update');
         this.$('.menu').toggle();
+    },
+    updateData: function(){
+        RAD.application.loadSpin.start();
+        this.publish('service.network.getUsersData', RAD.application.data);
     }
 }));

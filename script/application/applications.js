@@ -78,22 +78,22 @@ RAD.application(function (core) {
         };
 
         Parse.User.logOut();
-        core.publish("view.parent_view", {
+        core.publish('navigation.show', {
+            container_id: '.content',
             view: 'view.items_view',
-            method: 'show'
+            defaultAnimation: 'slide'
         });
         core.publish('navigation.show', options)
     };
-    app.showLoad = function(){
-        var $loadElem = $('<div/>', {class: 'load'}),
-            loadInPage = $('.load')[0];
-
-        if (! loadInPage){
-            $('#screen').append($loadElem);
-        }else{
-            $(loadInPage).toggle();
+    app.loadSpin = {
+        start: function(){
+            var loadElement = $('.upd_icon')[0];
+            $(loadElement).addClass('rotate_load');
+        },
+        stop: function(){
+            var loadElement = $('.upd_icon')[0];
+            $(loadElement).removeClass('rotate_load');
         }
-
     };
     app.showLoginView = function(){
         core.publish('navigation.show', {

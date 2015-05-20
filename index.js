@@ -5,7 +5,10 @@
         "script/model/models.js",
         "script/model/collections.js",
         "libs/iscroll-lite.js",
-        "script/service/service.js",
+        "script/service/items.js",
+        "script/service/network.js",
+        "script/service/post_notification.js",
+        "script/service/friend_notification.js",
 
         "script/views/message/message_view.js",
         "script/views/login/login_view.js",

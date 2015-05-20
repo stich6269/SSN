@@ -3,6 +3,9 @@ RAD.view("view.new_friends_view", RAD.Blanks.View.extend({
     onInitialize: function(){
         this.bindModel(RAD.application.data.NewFriendsCollection);
     },
+    onStartAttach: function(){
+
+    },
     events:{
         'click .accept':'acceptToFriends',
         'click .reject':'rejectToFriends'
