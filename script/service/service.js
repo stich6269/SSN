@@ -218,17 +218,18 @@ RAD.service("service.post_notification",  RAD.Blanks.Service.extend({
         var myId = Parse.User.current().id,
             collection = data.PostNotification,
             currentRecipient,
-            itemModel;
+            itemModel,
+            suggestPosts = [];
 
         for (var i = 0; i < collection.length; i++) {
             currentRecipient = collection.at(i).get('recipient');
             if(currentRecipient.id == myId){
                 itemModel = collection.at(i).get('content');
                 itemModel.set('notification', collection.at(i));
-                data.SuggestionPosts.add(itemModel);
+                suggestPosts.push(itemModel);
             }
         }
-
+        data.SuggestionPosts.reset(suggestPosts);
         if(data.SuggestionPosts.length){
             this.publish('service.show_error', 'Your friends sent you '
                 + data.SuggestionPosts.length + ' new alert purchases')
@@ -292,7 +293,7 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
     getIncomingFriendNotification: function(data){
         var myId = Parse.User.current().id,
             currentRecipient,
-            newFriend,
+            newFriends = [],
             sender,
             response;
 
@@ -301,11 +302,10 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
             response = data.FriendNotification.at(i).get('response');
             if (currentRecipient == myId && response == 'none' ) {
                 sender = data.FriendNotification.at(i).get('sender');
-                newFriend = data.UsersCollection.get(sender);
-                data.NewFriendsCollection.add(newFriend)
+                newFriends.push(data.UsersCollection.get(sender));
             }
         }
-
+        data.NewFriendsCollection.reset(newFriends)
         if(data.NewFriendsCollection.length){
             this.publish('service.show_error', 'Your friends sent you '
             + data.NewFriendsCollection.length + ' new friend request')
@@ -348,30 +348,38 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
             data.NewFriendsCollection.remove(friend);
         })
     },
-    // todo
-    processingOfConfirmedOrders: function(){
-        var sentNotification = RAD.model('SentFriendsNotification').pluck('recipient'),
-            user = Parse.User.current(),
+    getConfirmedFriend: function(data){
+        var user = Parse.User.current(),
             relation = user.relation('Friends'),
-            addFriend,
             count = 0,
-            self = this;
-        for (var i = 0; i < sentNotification.length; i++) {
-            if(RAD.model('SentFriendsNotification').at(i).get('response') == 'ok'){
-                addFriend = RAD.model('UsersCollection').get(sentNotification[i]);
-                RAD.model('FriendsCollection').add(addFriend);
-                relation.add(addFriend);
-                RAD.model('SentFriendsNotification').at(i).destroy();
-                sentNotification.splice(i, 1);
-                count++;
+            self = this,
+            currentNotif,
+            newFriend,
+            promArr = [];
+
+        for (var i = 0; i < data.FriendNotification.length; i++) {
+            currentNotif = data.FriendNotification.at(i).toJSON();
+            if (currentNotif.sender == user.id && currentNotif.response == 'ok'){
+                newFriend = data.UsersCollection.get(currentNotif.recipient);
+                data.FriendsCollection.add(newFriend);
+                promArr.push(data.UsersCollection.at(i).destroy());
+                relation.add(newFriend);
+                count ++;
             }
         }
-        user.save().then(function(){
-            if(count){
-                self.publish('service.show_error', 'Yo have are ' + count + ' new friends!');
-                count = 0;
-            }
+
+        Parse.Promise.when(promArr).then(function() {
+            user.save().then(function(){
+                if(count){
+                    self.publish('service.show_error', 'Yo have are ' + count + ' new friends!');
+                    count = 0;
+                }
+            });
         });
+
+
+
+
     },
     removeFriends: function(data){
         var spliceUser = data.FriendsCollection.get(data.userId),

@@ -1,7 +1,7 @@
 RAD.view("view.my_friends_view", RAD.Blanks.View.extend({
     url: 'script/views/friends_view/my_friends/my_friends_view.html',
     onInitialize: function(){
-        this.bindModel(RAD.model('FriendsCollection'));
+        this.bindModel(RAD.application.data.FriendsCollection);
     },
     onStartAttach: function(){
         var self = this;
@@ -13,12 +13,8 @@ RAD.view("view.my_friends_view", RAD.Blanks.View.extend({
         'click .remove':'removeFriends'
     },
     removeFriends:function(event) {
-        var userId = this.getUserId(event),
-            data = {
-                userId: userId,
-                FriendsCollection: RAD.model('FriendsCollection')
-            };
-        this.publish('service.notification.removeFriends', data);
+        RAD.application.data.userId = this.getUserId(event);
+        this.publish('service.notification.removeFriends', RAD.application.data);
     },
     getUserId: function(event){
         return $(event.currentTarget).parent().parent().attr('id');

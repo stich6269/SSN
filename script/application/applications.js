@@ -30,6 +30,7 @@ RAD.application(function (core) {
 
         for (var key in this.data) {
             if(this.data.hasOwnProperty(key) && key != 'FriendsCollection' && key != 'SuggestionPosts' && key != 'NewFriendsCollection'){
+                console.log(key);
                 promArr.push(this.data[key].refresh());
             }
 
@@ -42,6 +43,7 @@ RAD.application(function (core) {
                 core.publish('service.post_notification.getSuggestionPosts', self.data);
                 core.publish('service.notification.markPeopleWithNotification', self.data);
                 core.publish('service.notification.getIncomingFriendNotification', self.data);
+                core.publish('service.notification.getConfirmedFriend', self.data);
 /*
                 console.log('UsersCollection',          r1);  // prints 1
                 console.log('SentFriendsNotification',  r2);  // prints 2
@@ -92,6 +94,10 @@ RAD.application(function (core) {
             core.publish('navigation.show', options);
         } else {
             Parse.User.logOut();
+            core.publish("view.parent_view", {
+                view: 'view.items_view',
+                method: 'show'
+            });
             options.container_id = '#screen';
             options.content = "view.login_view";
             core.publish('navigation.show', options)

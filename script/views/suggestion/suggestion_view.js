@@ -15,17 +15,12 @@ RAD.view("view.suggestion_view", RAD.Blanks.ScrollableView.extend({
         'tap .delete' : 'deletePost'
     },
     takePost: function(event){
-        var postId = this.getModelId(event),
-            data = {
-                postId: postId,
-                SuggestionPosts: RAD.model('SuggestionPosts')
-            };
-
-        this.publish('service.post_notification.takePost', data);
+        RAD.application.data.postId = this.getModelId(event);
+        this.publish('service.post_notification.takePost', RAD.application.data);
     },
     deletePost: function(event){
-        var postId = this.getModelId(event);
-        this.publish('service.post_notification.deletePost', postId);
+        RAD.application.data.postId = this.getModelId(event);
+        this.publish('service.post_notification.deletePost', RAD.application.data);
     },
     getModelId: function (event) {
         return $(event.currentTarget).parent().parent().attr('id');

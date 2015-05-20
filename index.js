@@ -8,7 +8,6 @@
         "script/service/service.js",
 
         "script/views/message/message_view.js",
-        "script/views/load_view/load_view.js",
         "script/views/login/login_view.js",
         "script/views/registration/reg_view.js",
 
