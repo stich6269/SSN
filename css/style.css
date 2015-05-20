@@ -786,7 +786,6 @@ option{
     width: 40%;
 }
 
-
 .friend{
   display: inline-block;
   margin-top: 13px;
@@ -844,7 +843,6 @@ option{
     /* background-color: antiquewhite; */
 }
 
-
 .my_friends{
     display: block;
     width: 100%;
@@ -854,7 +852,6 @@ option{
     font-size: 18px;
 }
 
-
 .new_friends{
     display: block;
     width: 100%;
@@ -862,12 +859,7 @@ option{
     font-family: Arial;
     color: #686868;
     font-size: 18px;
-    /* background-color: #000; */
 }
-
-
-
-
 
 .friends_view ul{
     display: block;
@@ -901,7 +893,7 @@ option{
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    width: 60%;
+    width: 50%;
 }
 
 .friends_view .info .age,
@@ -913,7 +905,7 @@ option{
 .friends_view .button{
     display: inline-block;
     vertical-align: middle;
-    width: 70px;
+    width: 60px;
     float: right;
 
 }

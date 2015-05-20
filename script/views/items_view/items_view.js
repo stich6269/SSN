@@ -7,6 +7,11 @@ RAD.view("view.items_view", RAD.Blanks.ScrollableView.extend({
     onStartAttach: function(){
         this.model.refresh();
     },
+    onEndDetach: function(){
+        if (Parse.User.current()){
+            this.model.refresh();
+        }
+    },
     events:{
         'tap .delete' : 'removeItem',
         'tap .status' : 'changeStatus',

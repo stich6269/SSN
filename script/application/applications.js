@@ -28,9 +28,8 @@ RAD.application(function (core) {
         var options = {
             container_id: '.content',
             content: 'view.settings_view',
-            animationTimeout: 500
+            animationTimeout: 2000
         };
-
         if(Parse.User.current()){
             if (Parse.User.current().get('setupStatus') != 'complete'){
                 core.publish('navigation.show', options);
@@ -78,11 +77,6 @@ RAD.application(function (core) {
         };
 
         Parse.User.logOut();
-        core.publish('navigation.show', {
-            container_id: '.content',
-            view: 'view.items_view',
-            defaultAnimation: 'slide'
-        });
         core.publish('navigation.show', options)
     };
     app.loadSpin = {
