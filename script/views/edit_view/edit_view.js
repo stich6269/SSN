@@ -7,8 +7,8 @@ RAD.view("view.edit_view", RAD.Blanks.ScrollableView.extend({
         this.bindModel(extras.model);
     },
     events:{
-        'tap #cancel':'closeEditView',
-        'tap #save':'saveEditChange'
+        'click #cancel':'closeEditView',
+        'click #save':'saveEditChange'
     },
     saveEditChange: function(){
         var self = this,

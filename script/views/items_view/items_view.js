@@ -13,10 +13,10 @@ RAD.view("view.items_view", RAD.Blanks.ScrollableView.extend({
         }
     },
     events:{
-        'tap .delete' : 'removeItem',
-        'tap .status' : 'changeStatus',
-        'tap .edit'   : 'edit',
-        'tap .share'  : 'shareItem'
+        'click .delete' : 'removeItem',
+        'click .status' : 'changeStatus',
+        'click .edit'   : 'edit',
+        'click .share'  : 'shareItem'
     },
     changeStatus:function(event){
         var modelId  = this.getModelId(event),

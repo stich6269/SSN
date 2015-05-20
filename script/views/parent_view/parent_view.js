@@ -18,9 +18,9 @@ RAD.view("view.parent_view", RAD.Blanks.View.extend({
        RAD.application.checkUserProfile();
     },
     events:{
-        'tap .menu_icon': 'toggleMenu',
-        'tap .menu': 'toggleMenu',
-        'tap .upd_icon': 'updateData'
+        'click .menu_icon': 'toggleMenu',
+        'click .menu': 'toggleMenu',
+        'click .upd_icon': 'updateData'
     },
     toggleMenu: function(){
         this.publish('view.menu_view', 'update');

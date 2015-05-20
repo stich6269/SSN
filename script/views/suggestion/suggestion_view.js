@@ -11,8 +11,8 @@ RAD.view("view.suggestion_view", RAD.Blanks.ScrollableView.extend({
         RAD.application.data.PostNotification.refresh();
     },
     events:{
-        'tap .take' : 'takePost',
-        'tap .delete' : 'deletePost'
+        'click .take' : 'takePost',
+        'click .delete' : 'deletePost'
     },
     takePost: function(event){
         RAD.application.data.postId = this.getModelId(event);

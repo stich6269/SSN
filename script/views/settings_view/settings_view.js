@@ -10,8 +10,8 @@ RAD.view("view.settings_view", RAD.Blanks.ScrollableView.extend({
         this.bindModel(extras.model);
     },
     events:{
-        'tap #save': 'addUserData',
-        'tap #preview': 'addUserData'
+        'click #save': 'addUserData',
+        'click #preview': 'addUserData'
     },
     addUserData: function(evt){
         var newUser = {

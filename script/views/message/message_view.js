@@ -4,8 +4,8 @@ RAD.view("view.popup", RAD.Blanks.View.extend({
         this.model = new Backbone.Model();
     },
     events: {
-        'tap .error_box': 'closeDialog',
-        'tap #close': 'closeDialog'
+        'click .error_box': 'closeDialog',
+        'click #close': 'closeDialog'
     },
     attributes: {
         'data-role': 'popup-view'

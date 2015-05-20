@@ -2,7 +2,7 @@ RAD.view("view.menu_view", RAD.Blanks.View.extend({
     url: 'script/views/menu/menu_view.html',
     className: 'menu_wrap',
     events:{
-        'tap li':'showPage'
+        'click li':'showPage'
     },
     onInitialize: function(){
         this.bindModel(Parse.User.current());

@@ -1,8 +1,8 @@
 RAD.view("view.login_view", RAD.Blanks.View.extend({
     url: 'script/views/login/loqin_view.html',
     events: {
-        'tap .submit': 'logIn',
-        'tap .link':'goToRegView'
+        'click .submit': 'logIn',
+        'click .link':'goToRegView'
     },
     onInitialize: function () {
         this.model = new Backbone.Model();

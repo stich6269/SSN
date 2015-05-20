@@ -1,8 +1,8 @@
 RAD.view('view.reg_view', RAD.Blanks.View.extend({
     url: 'script/views/registration/reg_view.html',
     events:{
-        'tap .submit': 'signUpNewUser',
-        'tap .link': 'showLoginView'
+        'click .submit': 'signUpNewUser',
+        'click .link': 'showLoginView'
     },
     showLoginView: function(){
         this.publish('navigation.show', {
