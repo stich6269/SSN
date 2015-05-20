@@ -123,7 +123,7 @@ RAD.service("service.network", RAD.Blanks.Service.extend({
 
         Parse.User.logIn(user.username, user.password, {
             success: function() {
-                RAD.application.selectStartPage();
+                RAD.application.checkUser();
             },
             error: function(user, error) {
                 self.publish('service.show_error', "Error: " + error.message)
@@ -145,6 +145,30 @@ RAD.service("service.network", RAD.Blanks.Service.extend({
                 }
             });
         }
+    },
+    getUsersData: function(data){
+        var promArr = [],
+            self = this,
+            updColl = [
+                'ItemsCollection',
+                'UsersCollection',
+                'PostNotification',
+                'FriendNotification'
+            ];
+
+        for (var i = 0; i < updColl.length; i++) {
+            promArr.push(data[updColl[i]].refresh());
+        }
+
+        data.FriendsCollection.refresh().then(function(friends){
+            data.FriendsCollection.reset(friends);
+            Parse.Promise.when(promArr).then(function(f1, f2, f3, f4, f5){
+                self.publish('service.post_notification.getSuggestionPosts', data);
+                self.publish('service.friend_notification.markPeopleWithNotification', data);
+                self.publish('service.friend_notification.getIncomingFriendNotification', data);
+                self.publish('service.friend_notification.getConfirmedFriend', data);
+            })
+        });
     }
 }));
 
@@ -237,7 +261,7 @@ RAD.service("service.post_notification",  RAD.Blanks.Service.extend({
     }
 }));
 
-RAD.service("service.notification",  RAD.Blanks.Service.extend({
+RAD.service("service.friend_notification",  RAD.Blanks.Service.extend({
     onReceiveMsg: function(channel, data) {
         var parts = channel.split("."),
             func = parts[2];
@@ -305,7 +329,7 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
                 newFriends.push(data.UsersCollection.get(sender));
             }
         }
-        data.NewFriendsCollection.reset(newFriends)
+        data.NewFriendsCollection.reset(newFriends);
         if(data.NewFriendsCollection.length){
             this.publish('service.show_error', 'Your friends sent you '
             + data.NewFriendsCollection.length + ' new friend request')
@@ -313,8 +337,7 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
     },
     rejectToFriends: function(data){
         var user = data.NewFriendsCollection.get(data.userId),
-            notification,
-            self = this;
+            notification;
 
         notification = this.findNotificationModelForMe({
             FriendNotification: data.FriendNotification,
@@ -322,7 +345,6 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
         });
 
         notification.destroy().then(function () {
-                self.publish('service.show_error', 'Ok: reject to Friends');
                 data.NewFriendsCollection.remove(user);
             });
     },
@@ -330,8 +352,7 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
         var user = Parse.User.current(),
             friend = data.NewFriendsCollection.get(data.userId),
             relation = user.relation('Friends'),
-            notification,
-            self = this;
+            notification;
 
         notification = this.findNotificationModelForMe({
             FriendNotification: data.FriendNotification,
@@ -339,14 +360,15 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
         });
 
         notification.set('response', 'ok');
-        notification.save().then(function(){
-            relation.add(friend);
-            return user.save();
-        }).then(function(){
-            self.publish('service.show_error', 'Ok: new friends added');
-            data.FriendsCollection.add(friend);
+        notification.save().then(function() {
+            if(!data.FriendsCollection.get(data.userId)){
+                relation.add(friend);
+                user.save().then(function () {
+                    data.FriendsCollection.add(friend);
+                });
+            }
             data.NewFriendsCollection.remove(friend);
-        })
+        });
     },
     getConfirmedFriend: function(data){
         var user = Parse.User.current(),
@@ -362,24 +384,22 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
             if (currentNotif.sender == user.id && currentNotif.response == 'ok'){
                 newFriend = data.UsersCollection.get(currentNotif.recipient);
                 data.FriendsCollection.add(newFriend);
-                promArr.push(data.UsersCollection.at(i).destroy());
+                promArr.push(data.FriendNotification.at(i).destroy());
                 relation.add(newFriend);
                 count ++;
             }
         }
 
-        Parse.Promise.when(promArr).then(function() {
-            user.save().then(function(){
-                if(count){
-                    self.publish('service.show_error', 'Yo have are ' + count + ' new friends!');
-                    count = 0;
-                }
+        if(promArr.length){
+            Parse.Promise.when(promArr).then(function() {
+                user.save().then(function(){
+                    if(count){
+                        self.publish('service.show_error', 'Yo have are ' + count + ' new friends!');
+                        count = 0;
+                    }
+                });
             });
-        });
-
-
-
-
+        }
     },
     removeFriends: function(data){
         var spliceUser = data.FriendsCollection.get(data.userId),
@@ -413,7 +433,6 @@ RAD.service("service.notification",  RAD.Blanks.Service.extend({
         for (var i = 0; i < data.FriendNotification.length; i++) {
             currentSender = data.FriendNotification.at(i).get('sender');
             currentRecipient = data.FriendNotification.at(i).get('recipient');
-            console.log(data.userId, '=',currentSender, currentRecipient,'=', myId);
             if (data.userId == currentSender && currentRecipient == myId) {
                 return data.FriendNotification.at(i)
             }

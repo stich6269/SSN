@@ -9,11 +9,11 @@ RAD.view("view.new_friends_view", RAD.Blanks.View.extend({
     },
     acceptToFriends: function(event) {
         RAD.application.data.userId = this.getUserId(event);
-        this.publish('service.notification.acceptToFriends', RAD.application.data);
+        this.publish('service.friend_notification.acceptToFriends', RAD.application.data);
     },
     rejectToFriends:function(event) {
         RAD.application.data.userId = this.getUserId(event);
-        this.publish('service.notification.rejectToFriends', RAD.application.data);
+        this.publish('service.friend_notification.rejectToFriends', RAD.application.data);
     },
     getUserId: function(event){
         return $(event.currentTarget).parent().parent().attr('id');

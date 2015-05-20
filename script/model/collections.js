@@ -45,5 +45,5 @@ RAD.model('SuggestionPosts', Parse.Collection.extend({
 }), false);
 
 RAD.model('NewFriendsCollection', Parse.Collection.extend({
-    model: RAD.model('User'),
+    model: RAD.model('User')
 }), false);

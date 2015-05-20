@@ -15,6 +15,6 @@ RAD.view("view.people_view", RAD.Blanks.ScrollableView.extend({
             response: 'none',
             recipient: this.getModelId(event)
         };
-        this.publish('service.notification.sendFriendRequest', RAD.application.data);
+        this.publish('service.friend_notification.sendFriendRequest', RAD.application.data);
     }
 }));

@@ -15,7 +15,7 @@ RAD.view("view.parent_view", RAD.Blanks.View.extend({
         }
     ],
     onEndAttach: function(){
-       RAD.application.isFullUserProfile();
+       RAD.application.checkUserProfile();
     },
     events:{
         'tap .menu_icon': 'toggleMenu',

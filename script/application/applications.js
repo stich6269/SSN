@@ -5,7 +5,7 @@ RAD.application(function (core) {
 
     app.start = function () {
         core.startService();
-        this.selectStartPage();
+        this.checkUser();
     };
     app.data = {
         ItemsCollection:            new  RAD.models.ItemsCollection(),
@@ -16,46 +16,15 @@ RAD.application(function (core) {
         SuggestionPosts:            new  RAD.models.SuggestionPosts(),
         NewFriendsCollection:       new  RAD.models.NewFriendsCollection()
     };
-    app.selectStartPage = function(){
+    app.checkUser = function(){
         if(Parse.User.current()){
-            this.getData();
+            core.publish('service.network.getUsersData', this.data);
             this.showParentView();
         }else{
             this.showLoginView();
         }
     };
-    app.getData = function(){
-        var promArr = [],
-            self = this;
-
-        for (var key in this.data) {
-            if(this.data.hasOwnProperty(key) && key != 'FriendsCollection' && key != 'SuggestionPosts' && key != 'NewFriendsCollection'){
-                console.log(key);
-                promArr.push(this.data[key].refresh());
-            }
-
-        }
-
-
-        this.data.FriendsCollection.refresh().then(function(data){
-            self.data.FriendsCollection.reset(data);
-            Parse.Promise.when(promArr).then(function(r1, r2, r3, r4, r5) {
-                core.publish('service.post_notification.getSuggestionPosts', self.data);
-                core.publish('service.notification.markPeopleWithNotification', self.data);
-                core.publish('service.notification.getIncomingFriendNotification', self.data);
-                core.publish('service.notification.getConfirmedFriend', self.data);
-/*
-                console.log('UsersCollection',          r1);  // prints 1
-                console.log('SentFriendsNotification',  r2);  // prints 2
-                console.log('IncFriendsRequest',        r3);  // prints 3
-                console.log('FriendsCollection',        RAD.model('FriendsCollection'));  // prints 3
-                console.log('PostNotification',         r4);  // prints 3
-                console.log('FriendNotification',       r5);  // prints 3
-                console.log('END users data -----');*/
-            });
-        });
-    };
-    app.isFullUserProfile = function(){
+    app.checkUserProfile = function(){
         var options = {
             container_id: '.content',
             content: 'view.settings_view',
@@ -67,8 +36,29 @@ RAD.application(function (core) {
                 core.publish('navigation.show', options);
             }
         }else{
-            options.content = 'view.settings_view';
+            options.content = 'view.items_view';
             core.publish('navigation.show', options);
+        }
+    };
+    app.showView = function(pageId, data, animation) {
+        var options = {
+            container_id: '.content',
+            content: pageId,
+            animationTimeout: 2000,
+            defaultAnimation: animation || 'slide'
+        };
+
+
+        if (pageId != 'view.logout_view') {
+            if (Parse.User.current().get('setupStatus') != 'complete'){
+                options.content = 'view.settings_view';
+            }
+            if(data){
+                options.extras = {model: data}
+            }
+            core.publish('navigation.show', options);
+        } else {
+            this.logOut();
         }
     };
     app.userFilledProfile = function(){
@@ -79,29 +69,20 @@ RAD.application(function (core) {
             defaultAnimation: 'slide'
         });
     };
-    app.showView = function(pageId, data, animation) {
+    app.logOut = function(){
         var options = {
-            container_id: '.content',
-            content: pageId,
+            container_id: '#screen',
+            content: "view.login_view",
             animationTimeout: 2000,
-            defaultAnimation: animation || 'slide'
+            defaultAnimation: 'slide-out'
         };
 
-        if (pageId != 'view.logout_view') {
-            if(data){
-                options.extras = {model: data}
-            }
-            core.publish('navigation.show', options);
-        } else {
-            Parse.User.logOut();
-            core.publish("view.parent_view", {
-                view: 'view.items_view',
-                method: 'show'
-            });
-            options.container_id = '#screen';
-            options.content = "view.login_view";
-            core.publish('navigation.show', options)
-        }
+        Parse.User.logOut();
+        core.publish("view.parent_view", {
+            view: 'view.items_view',
+            method: 'show'
+        });
+        core.publish('navigation.show', options)
     };
     app.showLoad = function(){
         var $loadElem = $('<div/>', {class: 'load'}),

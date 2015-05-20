@@ -14,7 +14,7 @@ RAD.view("view.my_friends_view", RAD.Blanks.View.extend({
     },
     removeFriends:function(event) {
         RAD.application.data.userId = this.getUserId(event);
-        this.publish('service.notification.removeFriends', RAD.application.data);
+        this.publish('service.friend_notification.removeFriends', RAD.application.data);
     },
     getUserId: function(event){
         return $(event.currentTarget).parent().parent().attr('id');
