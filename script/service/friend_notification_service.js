@@ -18,10 +18,11 @@ RAD.service("service.friend_notification",  RAD.Blanks.Service.extend({
         if (!notification){
             data.requestObj.sender = Parse.User.current().id;
             newNotification = new RAD.models.FriendRequest(data.requestObj);
+            newFriend.set('sendFriendInv', 'send');
             newNotification.save().then(
                 function() {
-                    data.FriendNotification.add(newNotification);
                     newFriend.set('sendFriendInv', true);
+                    data.FriendNotification.add(newNotification);
                 });
         }else{
             notification.destroy().then(

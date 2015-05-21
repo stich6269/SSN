@@ -210,10 +210,50 @@ body{
   color: #686868;
 }
 
+#size,
+#loaded,
+#types,
+#name{
+  display: inline-block;
+  width: auto;
+}
+
+.add_item .photo{
+  display: inline-block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+}
+
+.photo_info{
+  display: inline-block;
+  margin-left: 105px;
+  width: 240px;
+  font-size: 15px;
+  height: 100%;
+}
 .add_item .button{
     width: 100%;
     display: block;
     height: 70px;
+}
+
+.load_status{
+  background-color: azure;
+}
+.load_status progress{
+  width: 100%;
+}
+
+.pic_info ul{
+  list-style: none;
+  margin: 5px 0 0 0;
+  padding: 0;
+}
+
+.pic_info li{
+  line-height: 20px;
 }
 
 input,
@@ -268,6 +308,8 @@ height:100%
     box-sizing: border-box;
 }
 
+
+
 .row label{
     color: #a1a1a1;
     display: block;
@@ -284,6 +326,24 @@ height:100%
     padding: 5px 10px 5px 5px;
     box-sizing: border-box;
     color: rgb(97, 97, 97);
+}
+
+.item_photo{
+  display: block;
+  padding: 5px 10px 5px 5px;
+  height: 115px;
+  width: 96%;
+  margin-left: 2%;
+  border: 2px dashed #ccc;
+}
+
+.row input[type='file']{
+  position: absolute;
+  z-index: 100;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  opacity: .0;
 }
 
 .row select{
@@ -800,18 +860,49 @@ option{
   cursor: pointer;
 }
 
-.people_view .add_users{
+.wait_response{
+  display: inline-block;
+  margin-top: 13px;
+  width: 35px;
+  height: 35px;
+  box-sizing: border-box;
+  padding-top: 4px;
+  text-align: center;
+  font-size: 25px;
+  color: white;
+  font-weight: 600;
+  float: right;
+  background-color: rgba(23, 98, 199, 0.26);
+  cursor: pointer;
+}
+
+.add_users{
     display: inline-block;
     margin-top: 12px;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     text-align: center;
-    font-size: 37px;
+    font-size: 33px;
     color: white;
     font-weight: 600;
     float: right;
     background-color: rgba(23, 98, 199, 0.86);
     cursor: pointer;
+}
+
+.send_request{
+    display: inline-block;
+    margin-top: 12px;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    font-size: 33px;
+    color: white;
+    font-weight: 600;
+    float: right;
+    cursor: pointer;
+    background-image: url("../images/loading200x200.gif");   background-repeat: no-repeat;   background-position: center center;   
+    background-size: 100%;   opacity: .5; };
 }
 
 .people_view .add_users:hover{
