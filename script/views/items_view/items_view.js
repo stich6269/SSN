@@ -13,19 +13,14 @@ RAD.view("view.items_view", RAD.Blanks.ScrollableView.extend({
         }
     },
     events:{
-        'click .delete' : 'removeItem',
-        'click .status' : 'changeStatus',
-        'click .edit'   : 'edit',
-        'click .share'  : 'shareItem'
+        'tap .delete' : 'removeItem',
+        'tap .status' : 'changeStatus',
+        'tap .edit'   : 'edit',
+        'tap .share'  : 'shareItem'
     },
     changeStatus:function(event){
-        var modelId  = this.getModelId(event),
-            data = {
-                modelId: modelId,
-                ItemsCollection: RAD.model('ItemsCollection')
-            };
-
-        this.publish('service.items.changeItemStatus', data);
+        RAD.application.data.modelId = this.getModelId(event);
+        this.publish('service.items.changeItemStatus',  RAD.application.data);
     },
     shareItem:function(event){
         RAD.application.data.modelId = this.getModelId(event);

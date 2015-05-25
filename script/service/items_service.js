@@ -80,8 +80,3 @@ RAD.service("service.items",  RAD.Blanks.Service.extend({
         }
     }
 }));
-
-
-
-
-

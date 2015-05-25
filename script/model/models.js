@@ -47,9 +47,8 @@ RAD.model('Item', Parse.Object.extend({
     defaults:{
         title: null,
         price: null,
-        date: null,
         status: null,
-        photoUrl: null
+        photo: null
     },
     validate: function(attr){
         var newModel = attr,

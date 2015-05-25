@@ -65,7 +65,7 @@ body{
     background-image: url("../images/load.png");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 60%;
+    background-size: 55%;
     opacity: .5;
 }
 
@@ -219,11 +219,14 @@ body{
 }
 
 .add_item .photo{
-  display: inline-block;
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
+    display: inline-block;
+    width: 101%;
+    height: 300px;
+    background-color: #ccc;
+    background-image: url('../images/add_file.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 40%;
 }
 
 .photo_info{
@@ -331,7 +334,7 @@ height:100%
 .item_photo{
   display: block;
   padding: 5px 10px 5px 5px;
-  height: 115px;
+  height: 315px;
   width: 96%;
   margin-left: 2%;
   border: 2px dashed #ccc;
@@ -341,9 +344,12 @@ height:100%
   position: absolute;
   z-index: 100;
   display: inline-block;
-  width: 100px;
-  height: 100px;
-  opacity: .0;
+  width: 94%;
+  height: 300px;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+
 }
 
 .row select{
@@ -634,7 +640,7 @@ option{
     background-repeat: no-repeat;
     background-size: 27px;
     opacity: 0.2;
-    cursor: position;
+    cursor: pointer;
 }
 .item_info .title{
     display: inline-block;
@@ -779,18 +785,20 @@ option{
 
 
 .load{
-    display: block;
+    display: none;
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,1);
-    background-image: url('http://localhost:63342/BuyMe/images/loading200x200.gif');
+    background-color: rgba(0,0,0,.7);
     background-repeat: no-repeat; 
     background-position: center 40%; 
     background-size: 40%; 
-    opacity: .6;
     z-index: 50;
+    font-size: 20px;
+    text-align: center;
+    line-height: 500px;
+    color: white;
 }
 
 
@@ -902,7 +910,7 @@ option{
     float: right;
     cursor: pointer;
     background-image: url("../images/loading200x200.gif");   background-repeat: no-repeat;   background-position: center center;   
-    background-size: 100%;   opacity: .5; };
+    background-size: 100%;   opacity: .5;
 }
 
 .people_view .add_users:hover{
