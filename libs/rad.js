@@ -1450,8 +1450,8 @@
                         popupY = targetY + targetH - nullTargetOffsetY;
                         break;
                     case 'left':
-                        popupY = targetY - popupH / 2 + targetH / 2;
-                        popupX = targetX - popupW + nullTargetOffsetX;
+                        popupY = targetY - popupH / 2 + targetH / 2 + 75;
+                        popupX = targetX - popupW + nullTargetOffsetX + 45;
                         break;
                     case 'right':
                         popupY = targetY - popupH / 2 + targetH / 2;

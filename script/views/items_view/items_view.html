@@ -1,10 +1,10 @@
 
     <ul>
         {{# _.each(model, function(item) { }}
-        <li id="{{ item.objectId }}">
+        <li>
             <div class="item_info">
                 <div class="title">{{ item.title }}</div>
-                <div class="delete"></div>
+                <div id="{{ item.objectId }}" class="option_but"></div>
                 <div class="photo" style="background-image: url('{{ item.photo.url }}')">
 
                     <div class="photo_bar">
@@ -12,12 +12,6 @@
                         <div class="price">Price: {{ item.price }}$</div>
                     </div>
                 </div>
-            </div>
-
-            <div class="buttons">
-                <button class="share">Share</button>
-                <button class="status">Status</button>
-                <button class="edit">Edit</button>
             </div>
         </li>
 

@@ -18,6 +18,8 @@
         "script/views/suggestion/suggestion_view.js",
 
         "script/views/items_view/items_view.js",
+        "script/views/suggestion/option_popup/option_suggestion_popup.js",
+        "script/views/items_view/option_popup/option_popup.js",
         "script/views/people/people_view.js",
         "script/views/add_items/add_items_view.js",
         "script/views/settings_view/settings_view.js",

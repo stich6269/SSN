@@ -13,9 +13,9 @@
             <input type="text" id="price" value="{{=model.price }}"/>
         </div>
 
-        <div class="row">
-            <label for="photoUrl">Photo url:</label>
-            <input type="text" id="photoUrl" value="{{=model.photoUrl }}"/>
+        <div class="row item_photo">
+            <input type="file" id="item_pic"/>
+            <img class="photo" style="background-image: url({{ model.photo.url }})">
         </div>
 
 
@@ -25,3 +25,5 @@
         </div>
     </form>
 </div>
+
+

@@ -8,12 +8,12 @@ RAD.view("view.add_items_view", RAD.Blanks.ScrollableView.extend({
     addNewItem: function() {
        var self = this,
            newItem = {
-            status: 'planned',
-            title: this.$('#title').val(),
-            price: +this.$('#price').val()
-        };
+               status: 'planned',
+               title: this.$('#title').val(),
+               price: +this.$('#price').val()
+           };
 
-
+        RAD.application.data.newItemData = newItem;
         if(this.parseFile){
             this.$('.load').toggle();
             this.parseFile.save().then(function(){
@@ -21,11 +21,10 @@ RAD.view("view.add_items_view", RAD.Blanks.ScrollableView.extend({
                 newItem.photo = self.parseFile;
                 self.$('form')[0].reset();
                 self.$('.photo').attr('src', '');
+                self.publish('service.items.addItem', RAD.application.data);
                 self.parseFile = null;
             });
         }
-        RAD.application.data.newItemData = newItem;
-        self.publish('service.items.addItem', RAD.application.data);
     },
     loadImage: function(evt) {
         var file = evt.target.files[0],

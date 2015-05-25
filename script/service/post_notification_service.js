@@ -43,7 +43,7 @@ RAD.service("service.post_notification",  RAD.Blanks.Service.extend({
         }
     },
     takePost: function (data) {
-        var takePost = data.SuggestionPosts.get(data.postId),
+        var takePost = data.SuggestionPosts.get(data.modelId),
             newPostData = takePost.toJSON(),
             self = this;
 
@@ -56,7 +56,7 @@ RAD.service("service.post_notification",  RAD.Blanks.Service.extend({
         });
     },
     deletePost: function (data) {
-        var takePost = data.SuggestionPosts.get(data.postId);
+        var takePost = data.SuggestionPosts.get(data.modelId);
 
         takePost.get('notification').destroy().then(function () {
             data.SuggestionPosts.remove(takePost);

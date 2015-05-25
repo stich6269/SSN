@@ -13,28 +13,27 @@ RAD.view("view.items_view", RAD.Blanks.ScrollableView.extend({
         }
     },
     events:{
-        'tap .delete' : 'removeItem',
-        'tap .status' : 'changeStatus',
-        'tap .edit'   : 'edit',
-        'tap .share'  : 'shareItem'
+        'tap .option_but' : 'option'
     },
-    changeStatus:function(event){
-        RAD.application.data.modelId = this.getModelId(event);
-        this.publish('service.items.changeItemStatus',  RAD.application.data);
+    onNewExtras: function (extras) {
+        this.modelId = extras.msg;
     },
-    shareItem:function(event){
-        RAD.application.data.modelId = this.getModelId(event);
-        this.publish('service.post_notification.sharePost', RAD.application.data);
-    },
-    removeItem: function(event){
-        RAD.application.data.modelId = this.getModelId(event);
-        this.publish('service.items.removeItem', RAD.application.data);
-    },
-    edit: function(event){
-        var modelId  = this.getModelId(event);
-        RAD.application.showView('view.edit_view', RAD.application.data.ItemsCollection.get(modelId))
-    },
-    getModelId: function (event) {
-        return $(event.currentTarget).parent().parent().attr('id');
+    modelId: null,
+    option: function(event){
+        var modelId = $(event.currentTarget).attr('id'),
+            searchStr = '.option_but' + '#' + modelId,
+            target = this.$( searchStr)[0];
+
+        this.publish('navigation.popup.show', {
+            content: "view.option_popup",
+            target: target,
+            width: 120,
+            height: 117,
+            gravity: 'left',
+            outsideClose: true,
+            extras: {
+                msg: modelId
+            }
+        });
     }
 }));
